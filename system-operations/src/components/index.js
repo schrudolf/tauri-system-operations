@@ -15,6 +15,7 @@ export default function AppIndex() {
   const [operation, setOperation] = React.useState("");
   const [active, setActive] = React.useState(false);
   const [value, setValue] = React.useState(new Date());
+  const [activeInterval, setActiveInterval] = React.useState();
 
   async function executeOperation() {
     if (operation === "Restart") {
@@ -23,8 +24,8 @@ export default function AppIndex() {
     } else if (operation === "Turning off") {
       const command = new Command("cmd.exe", ["/c", "shutdown /s"]);
       await command.spawn();
-    } else if (operation === "Hibernate") {
-      const command = new Command("cmd.exe", ["/c", "shutdown /h"]);
+    } else if (operation === "Sleeping mode") {
+      const command = new Command("cmd.exe", ["/c","rundll32.exe powrprof.dll,SetSuspendState 0,1,0"]);
       await command.spawn();
     } else {
       return;
@@ -34,7 +35,7 @@ export default function AppIndex() {
   const handleChange = (event) => {
     setOperation(event.target.value);
   };
-  function stopTimer() {
+  function stopTimer(myInterval) {
     const [responseMessage, operation_type, operation_start, remaining_time] =
       document.querySelectorAll(
         "#response, #operation_type, #operation_start, #remaining_time"
@@ -44,6 +45,10 @@ export default function AppIndex() {
     operation_start.innerHTML = "";
     remaining_time.innerHTML = "";
     setActive(false);
+    if (typeof myInterval !== "undefined") {
+      clearInterval(myInterval);
+    }
+    clearInterval(activeInterval);
   }
   async function startTimer() {
     const [responseMessage, operation_type, operation_start, remaining_time] =
@@ -64,15 +69,16 @@ export default function AppIndex() {
       let currentDate = Math.floor(new Date().getTime() / 1000);
       let convertedTargetDate = Math.floor(value.getTime() / 1000);
       if (currentDate === convertedTargetDate) {
-        clearInterval(myInterval);
-        stopTimer();
+        stopTimer(myInterval);
         executeOperation();
+        clearInterval(myInterval);
       } else {
         remaining_time.innerHTML =
           "Remaining seconds: " +
           (convertedTargetDate - currentDate).toString();
       }
     }, 1000);
+    setActiveInterval(myInterval);
   }
   return (
     <Container maxWidth="md">
@@ -98,7 +104,7 @@ export default function AppIndex() {
           >
             <MenuItem value={"Restart"}>Restart</MenuItem>
             <MenuItem value={"Turning off"}>Turning off</MenuItem>
-            <MenuItem value={"Hibernate"}>Hibernate</MenuItem>
+            <MenuItem value={"Sleeping mode"}>Sleeping mode</MenuItem>
           </Select>
           <DateTimePicker
             ampm={false}
@@ -122,7 +128,6 @@ export default function AppIndex() {
         <p id="operation_type"></p>
         <p id="operation_start"></p>
         <p id="remaining_time"></p>
-        <p id="error"></p>
       </Grid>
     </Container>
   );
