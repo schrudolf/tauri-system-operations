@@ -51,6 +51,8 @@ export default function AppIndex() {
     clearInterval(activeInterval);
   }
   async function startTimer() {
+    const defaultDate = Math.floor(value.getTime() / 1000);
+    const dateNow = Math.floor(new Date().getTime() / 1000);
     const [responseMessage, operation_type, operation_start, remaining_time] =
       document.querySelectorAll(
         "#response, #operation_type, #operation_start, #remaining_time"
@@ -59,8 +61,11 @@ export default function AppIndex() {
       responseMessage.innerHTML = "Please select an operation before start";
       return;
     }
+    if(defaultDate < dateNow){
+      responseMessage.innerHTML = "Please choose a Date before start"
+      return
+    }
     responseMessage.innerHTML = "";
-    setValue(new Date());
     setActive(true);
     const targetDate = value.toLocaleString();
     operation_type.innerHTML = "System will " + operation;
