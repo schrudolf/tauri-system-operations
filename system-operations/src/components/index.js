@@ -10,6 +10,7 @@ import {
   Select,
   MenuItem,
   TextField,
+  Link
 } from "@mui/material";
 export default function AppIndex() {
   const [operation, setOperation] = React.useState("");
@@ -112,6 +113,8 @@ export default function AppIndex() {
             <MenuItem value={"Sleeping mode"}>Sleeping mode</MenuItem>
           </Select>
           <DateTimePicker
+            disablePast
+            minTime={value}
             ampm={false}
             renderInput={(props) => <TextField {...props} />}
             value={value}
@@ -130,9 +133,12 @@ export default function AppIndex() {
           )}
         </FormControl>
         <p id="response"></p>
-        <p id="operation_type"></p>
-        <p id="operation_start"></p>
-        <p id="remaining_time"></p>
+        <p style={{margin: 3}} id="operation_type"></p>
+        <p style={{margin: 3}} id="operation_start"></p>
+        <p style={{margin: 3}} id="remaining_time"></p>
+        <p>Created by: 
+        <Link target={"_blank"} href="https://github.com/schrudolf" > schRudolf</Link>
+        </p>
       </Grid>
     </Container>
   );
