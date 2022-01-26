@@ -56,7 +56,7 @@
         "title": "System Operations",
         "width": 500,
         "height": 800,
-        "resizable": true,
+        "resizable": false,
         "fullscreen": false
       }
     ],

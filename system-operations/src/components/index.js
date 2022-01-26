@@ -10,7 +10,8 @@ import {
   Select,
   MenuItem,
   TextField,
-  Link
+  Link,
+  NativeSelect,
 } from "@mui/material";
 export default function AppIndex() {
   const [operation, setOperation] = React.useState("");
@@ -26,7 +27,10 @@ export default function AppIndex() {
       const command = new Command("cmd.exe", ["/c", "shutdown /s"]);
       await command.spawn();
     } else if (operation === "Sleeping mode") {
-      const command = new Command("cmd.exe", ["/c","rundll32.exe powrprof.dll,SetSuspendState 0,1,0"]);
+      const command = new Command("cmd.exe", [
+        "/c",
+        "rundll32.exe powrprof.dll,SetSuspendState 0,1,0",
+      ]);
       await command.spawn();
     } else {
       return;
@@ -62,9 +66,9 @@ export default function AppIndex() {
       responseMessage.innerHTML = "Please select an operation before start";
       return;
     }
-    if(defaultDate < dateNow){
-      responseMessage.innerHTML = "Please choose a Date before start"
-      return
+    if (defaultDate < dateNow) {
+      responseMessage.innerHTML = "Please choose a Date before start";
+      return;
     }
     responseMessage.innerHTML = "";
     setActive(true);
@@ -133,12 +137,25 @@ export default function AppIndex() {
           )}
         </FormControl>
         <p id="response"></p>
-        <p style={{margin: 3}} id="operation_type"></p>
-        <p style={{margin: 3}} id="operation_start"></p>
-        <p style={{margin: 3}} id="remaining_time"></p>
-        <p>Created by: 
-        <Link target={"_blank"} href="https://github.com/schrudolf" > schRudolf</Link>
+        <p style={{ margin: 3 }} id="operation_type"></p>
+        <p style={{ margin: 3 }} id="operation_start"></p>
+        <p style={{ margin: 3 }} id="remaining_time"></p>
+        <p>
+          Created by:
+          <Link target={"_blank"} href="https://github.com/schrudolf">
+            {" "}
+            schRudolf
+          </Link>
         </p>
+        <FormControl sx={{marginTop: 3}}>
+          <InputLabel variant="standard" >
+            Language
+          </InputLabel>
+          <NativeSelect defaultValue={"English"}> 
+            <option value={"English"}>English</option>
+            <option value={"Magyar"}>Magyar</option>
+          </NativeSelect>
+        </FormControl>
       </Grid>
     </Container>
   );
