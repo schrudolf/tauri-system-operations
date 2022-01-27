@@ -52,6 +52,7 @@ export default function AppIndex() {
     operation_type.innerHTML = "";
     operation_start.innerHTML = "";
     remaining_time.innerHTML = "";
+    setOperation("");
     if (event.target.value === "en") {
       setLanguage(en);
     } else if (event.target.value === "hu") {

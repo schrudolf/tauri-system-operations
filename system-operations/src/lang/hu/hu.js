@@ -21,9 +21,9 @@ const hu = {
         }
     },
     response: {
-        selectOperation: "Kérlek válasz egy rendszerműveletet indítás elött",
-        selectDate: "Kérlek válaszd ki az időpontot",
-        targetOperation: "Rendszerművelet ",
+        selectOperation: "Kérlek válasz egy rendszerműveletet az indítás elött",
+        selectDate: "Kérlek válaszd ki a kívánt időpontot",
+        targetOperation: "Rendszerművelet: ",
         targetDate: "Mikor? ",
         remainingSeconds: "Hátralévő másodpercek: "
     }
