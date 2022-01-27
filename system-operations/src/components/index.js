@@ -1,6 +1,7 @@
 import React from "react";
 import DateTimePicker from "@mui/lab/DateTimePicker";
 import en from "../lang/en/en";
+import hu from "../lang/hu/hu";
 import { Command } from "@tauri-apps/api/shell";
 import {
   Container,
