@@ -1,7 +1,6 @@
 import React from "react";
 import DateTimePicker from "@mui/lab/DateTimePicker";
-import en from "../lang/en/en";
-import hu from "../lang/hu/hu";
+import {hu, en} from "../lang/index";
 import { Command } from "@tauri-apps/api/shell";
 import {
   Container,
@@ -178,7 +177,7 @@ export default function AppIndex() {
             </InputLabel>
             <Select
               onChange={changeLanguage}
-              defaultValue={language.name}
+              value={language.name}
               label={language.languageSelector.inputLabel}
             >
               <MenuItem value={"en"}>
