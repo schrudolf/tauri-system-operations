@@ -13,7 +13,6 @@ import {
   MenuItem,
   TextField,
   Link,
-  NativeSelect,
 } from "@mui/material";
 export default function AppIndex() {
   const [operation, setOperation] = React.useState("");
@@ -172,18 +171,22 @@ export default function AppIndex() {
             {language.created.name}
           </Link>
         </p>
-        <FormControl sx={{ marginTop: 3 }}>
-          <InputLabel variant="standard">
+        <FormControl>
+          <InputLabel variant="outlined">
             {language.languageSelector.inputLabel}
           </InputLabel>
-          <NativeSelect onChange={changeLanguage} defaultValue={"English"}>
-            <option value={"en"}>
+          <Select
+            onChange={changeLanguage}
+            defaultValue={"en"}
+            label={language.languageSelector.inputLabel}
+          >
+            <MenuItem value={"en"}>
               {language.languageSelector.languages.en}
-            </option>
-            <option value={"hu"}>
+            </MenuItem>
+            <MenuItem value={"hu"}>
               {language.languageSelector.languages.hu}
-            </option>
-          </NativeSelect>
+            </MenuItem>
+          </Select>
         </FormControl>
       </Grid>
     </Container>
