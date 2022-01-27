@@ -1,5 +1,6 @@
 import React from "react";
 import DateTimePicker from "@mui/lab/DateTimePicker";
+import en from "../lang/en/en";
 import { Command } from "@tauri-apps/api/shell";
 import {
   Container,
@@ -18,6 +19,7 @@ export default function AppIndex() {
   const [active, setActive] = React.useState(false);
   const [value, setValue] = React.useState(new Date());
   const [activeInterval, setActiveInterval] = React.useState();
+  const [language, setLanguage] = React.useState(en);
 
   async function executeOperation() {
     if (operation === "Restart") {
@@ -63,18 +65,18 @@ export default function AppIndex() {
         "#response, #operation_type, #operation_start, #remaining_time"
       );
     if (operation === "") {
-      responseMessage.innerHTML = "Please select an operation before start";
+      responseMessage.innerHTML = language.response.selectOperation;
       return;
     }
     if (defaultDate < dateNow) {
-      responseMessage.innerHTML = "Please choose a Date before start";
+      responseMessage.innerHTML = language.response.selectDate;
       return;
     }
     responseMessage.innerHTML = "";
     setActive(true);
     const targetDate = value.toLocaleString();
-    operation_type.innerHTML = "System will " + operation;
-    operation_start.innerHTML = "When? " + targetDate;
+    operation_type.innerHTML = language.response.targetOperation + operation;
+    operation_start.innerHTML = language.response.targetDate + targetDate;
     const myInterval = setInterval(() => {
       let currentDate = Math.floor(new Date().getTime() / 1000);
       let convertedTargetDate = Math.floor(value.getTime() / 1000);
@@ -84,7 +86,7 @@ export default function AppIndex() {
         clearInterval(myInterval);
       } else {
         remaining_time.innerHTML =
-          "Remaining seconds: " +
+        language.response.remainingSeconds +
           (convertedTargetDate - currentDate).toString();
       }
     }, 1000);
@@ -105,16 +107,16 @@ export default function AppIndex() {
         style={{ minHeight: "100vh" }}
       >
         <FormControl fullWidth>
-          <InputLabel id="label_id">System operations</InputLabel>
+          <InputLabel id="label_id">{language.operationLabelName}</InputLabel>
           <Select
             labelId="label_id"
             value={operation}
-            label="System operations"
+            label={language.operationLabelName}
             onChange={handleChange}
           >
-            <MenuItem value={"Restart"}>Restart</MenuItem>
-            <MenuItem value={"Turning off"}>Turning off</MenuItem>
-            <MenuItem value={"Sleeping mode"}>Sleeping mode</MenuItem>
+            <MenuItem value={language.operationNames.restart}>{language.operationNames.restart}</MenuItem>
+            <MenuItem value={language.operationNames.turningOff}>{language.operationNames.turningOff}</MenuItem>
+            <MenuItem value={language.operationNames.turningOff}>{language.operationNames.turningOff}</MenuItem>
           </Select>
           <DateTimePicker
             disablePast
@@ -128,11 +130,11 @@ export default function AppIndex() {
           />
           {active ? (
             <Button onClick={stopTimer} m={5} variant="contained" color="error">
-              Stop
+              {language.buttons.stop}
             </Button>
           ) : (
             <Button onClick={startTimer} m={5} variant="contained">
-              Start
+              {language.buttons.start}
             </Button>
           )}
         </FormControl>
@@ -141,19 +143,19 @@ export default function AppIndex() {
         <p style={{ margin: 3 }} id="operation_start"></p>
         <p style={{ margin: 3 }} id="remaining_time"></p>
         <p>
-          Created by:
+          {language.created.msg}
           <Link target={"_blank"} href="https://github.com/schrudolf">
             {" "}
-            schRudolf
+            {language.created.name}
           </Link>
         </p>
         <FormControl sx={{marginTop: 3}}>
           <InputLabel variant="standard" >
-            Language
+            {language.languageSelector.inputLabel}
           </InputLabel>
           <NativeSelect defaultValue={"English"}> 
-            <option value={"English"}>English</option>
-            <option value={"Magyar"}>Magyar</option>
+            <option value={"English"}>{language.languageSelector.languages.en}</option>
+            <option value={"Magyar"}>{language.languageSelector.languages.hu}</option>
           </NativeSelect>
         </FormControl>
       </Grid>
