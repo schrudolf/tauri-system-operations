@@ -23,13 +23,13 @@ export default function AppIndex() {
   const [language, setLanguage] = React.useState(en);
 
   async function executeOperation() {
-    if (operation === "Restart") {
+    if (operation === language.operationNames.restart) {
       const command = new Command("cmd.exe", ["/c", "shutdown /r"]);
       await command.spawn();
-    } else if (operation === "Turning off") {
+    } else if (operation === language.operationNames.turningOff) {
       const command = new Command("cmd.exe", ["/c", "shutdown /s"]);
       await command.spawn();
-    } else if (operation === "Sleeping mode") {
+    } else if (operation === language.operationNames.sleeping) {
       const command = new Command("cmd.exe", [
         "/c",
         "rundll32.exe powrprof.dll,SetSuspendState 0,1,0",
@@ -42,6 +42,21 @@ export default function AppIndex() {
 
   const handleChange = (event) => {
     setOperation(event.target.value);
+  };
+  const changeLanguage = (event) => {
+    const [responseMessage, operation_type, operation_start, remaining_time] =
+      document.querySelectorAll(
+        "#response, #operation_type, #operation_start, #remaining_time"
+      );
+    responseMessage.innerHTML = "";
+    operation_type.innerHTML = "";
+    operation_start.innerHTML = "";
+    remaining_time.innerHTML = "";
+    if (event.target.value === "en") {
+      setLanguage(en);
+    } else if (event.target.value === "hu") {
+      setLanguage(hu);
+    }
   };
   function stopTimer(myInterval) {
     const [responseMessage, operation_type, operation_start, remaining_time] =
@@ -87,7 +102,7 @@ export default function AppIndex() {
         clearInterval(myInterval);
       } else {
         remaining_time.innerHTML =
-        language.response.remainingSeconds +
+          language.response.remainingSeconds +
           (convertedTargetDate - currentDate).toString();
       }
     }, 1000);
@@ -115,9 +130,15 @@ export default function AppIndex() {
             label={language.operationLabelName}
             onChange={handleChange}
           >
-            <MenuItem value={language.operationNames.restart}>{language.operationNames.restart}</MenuItem>
-            <MenuItem value={language.operationNames.turningOff}>{language.operationNames.turningOff}</MenuItem>
-            <MenuItem value={language.operationNames.turningOff}>{language.operationNames.turningOff}</MenuItem>
+            <MenuItem value={language.operationNames.restart}>
+              {language.operationNames.restart}
+            </MenuItem>
+            <MenuItem value={language.operationNames.turningOff}>
+              {language.operationNames.turningOff}
+            </MenuItem>
+            <MenuItem value={language.operationNames.sleeping}>
+              {language.operationNames.sleeping}
+            </MenuItem>
           </Select>
           <DateTimePicker
             disablePast
@@ -150,13 +171,17 @@ export default function AppIndex() {
             {language.created.name}
           </Link>
         </p>
-        <FormControl sx={{marginTop: 3}}>
-          <InputLabel variant="standard" >
+        <FormControl sx={{ marginTop: 3 }}>
+          <InputLabel variant="standard">
             {language.languageSelector.inputLabel}
           </InputLabel>
-          <NativeSelect defaultValue={"English"}> 
-            <option value={"English"}>{language.languageSelector.languages.en}</option>
-            <option value={"Magyar"}>{language.languageSelector.languages.hu}</option>
+          <NativeSelect onChange={changeLanguage} defaultValue={"English"}>
+            <option value={"en"}>
+              {language.languageSelector.languages.en}
+            </option>
+            <option value={"hu"}>
+              {language.languageSelector.languages.hu}
+            </option>
           </NativeSelect>
         </FormControl>
       </Grid>

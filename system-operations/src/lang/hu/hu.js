@@ -6,7 +6,7 @@ const hu = {
         sleeping: "Alvó mód",
     },
     buttons: {
-        start: "Elindít",
+        start: "Indít",
         stop: "Megállít",
     },
     created: {
@@ -22,7 +22,7 @@ const hu = {
     },
     response: {
         selectOperation: "Kérlek válasz egy rendszerműveletet indítás elött",
-        selectDate: "Kérlek válassz ki az időpontot",
+        selectDate: "Kérlek válaszd ki az időpontot",
         targetOperation: "Rendszerművelet ",
         targetDate: "Mikor? ",
         remainingSeconds: "Hátralévő másodpercek: "
