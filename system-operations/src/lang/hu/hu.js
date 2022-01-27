@@ -1,4 +1,5 @@
 const hu = {
+    name: "hu",
     operationLabelName: "Rendszerműveletek",
     operationNames: {
         restart: "Újraindítás",

@@ -171,23 +171,25 @@ export default function AppIndex() {
             {language.created.name}
           </Link>
         </p>
-        <FormControl>
-          <InputLabel variant="outlined">
-            {language.languageSelector.inputLabel}
-          </InputLabel>
-          <Select
-            onChange={changeLanguage}
-            defaultValue={"en"}
-            label={language.languageSelector.inputLabel}
-          >
-            <MenuItem value={"en"}>
-              {language.languageSelector.languages.en}
-            </MenuItem>
-            <MenuItem value={"hu"}>
-              {language.languageSelector.languages.hu}
-            </MenuItem>
-          </Select>
-        </FormControl>
+        {!active && (
+          <FormControl>
+            <InputLabel variant="outlined">
+              {language.languageSelector.inputLabel}
+            </InputLabel>
+            <Select
+              onChange={changeLanguage}
+              defaultValue={language.name}
+              label={language.languageSelector.inputLabel}
+            >
+              <MenuItem value={"en"}>
+                {language.languageSelector.languages.en}
+              </MenuItem>
+              <MenuItem value={"hu"}>
+                {language.languageSelector.languages.hu}
+              </MenuItem>
+            </Select>
+          </FormControl>
+        )}
       </Grid>
     </Container>
   );

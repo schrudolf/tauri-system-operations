@@ -53,7 +53,7 @@
     },
     "windows": [
       {
-        "title": "System Operations",
+        "title": "System Operations v1.0.0",
         "width": 500,
         "height": 800,
         "resizable": false,

@@ -1,4 +1,5 @@
 const en = {
+    name: "en",
     operationLabelName: "System operations",
     operationNames: {
         restart: "Restart",
