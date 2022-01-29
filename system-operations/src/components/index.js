@@ -13,6 +13,7 @@ import {
   TextField,
   Link,
 } from "@mui/material";
+
 export default function AppIndex() {
   const [operation, setOperation] = React.useState("");
   const [active, setActive] = React.useState(false);
@@ -23,7 +24,8 @@ export default function AppIndex() {
   const handleChange = (event) => {
     setOperation(event.target.value);
   };
-  const changeLanguage = (event) => {
+
+  const clearMessages = () => {
     const [responseMessage, operation_type, operation_start, remaining_time] =
       document.querySelectorAll(
         "#response, #operation_type, #operation_start, #remaining_time"
@@ -32,6 +34,10 @@ export default function AppIndex() {
     operation_type.innerHTML = "";
     operation_start.innerHTML = "";
     remaining_time.innerHTML = "";
+  };
+
+  const changeLanguage = (event) => {
+    clearMessages();
     setOperation("");
     if (event.target.value === "en") {
       setLanguage(en);
@@ -39,22 +45,16 @@ export default function AppIndex() {
       setLanguage(hu);
     }
   };
-  function stopTimer(myInterval) {
-    const [responseMessage, operation_type, operation_start, remaining_time] =
-      document.querySelectorAll(
-        "#response, #operation_type, #operation_start, #remaining_time"
-      );
-    responseMessage.innerHTML = "";
-    operation_type.innerHTML = "";
-    operation_start.innerHTML = "";
-    remaining_time.innerHTML = "";
+  const stopTimer = (myInterval) => {
+    clearMessages();
     setActive(false);
     if (typeof myInterval !== "undefined") {
       clearInterval(myInterval);
     }
     clearInterval(activeInterval);
-  }
-  async function startTimer() {
+  };
+
+  const startTimer = async () => {
     const defaultDate = Math.floor(value.getTime() / 1000);
     const dateNow = Math.floor(new Date().getTime() / 1000);
     const [responseMessage, operation_type, operation_start, remaining_time] =
@@ -88,7 +88,8 @@ export default function AppIndex() {
       }
     }, 1000);
     setActiveInterval(myInterval);
-  }
+  };
+
   return (
     <Container maxWidth="md">
       <Grid
