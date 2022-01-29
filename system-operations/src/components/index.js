@@ -1,7 +1,7 @@
 import React from "react";
 import DateTimePicker from "@mui/lab/DateTimePicker";
 import { hu, en } from "../lang/index";
-import { Command } from "@tauri-apps/api/shell";
+import systemOperation from "../services/systemOperations";
 import {
   Container,
   Grid,
@@ -19,24 +19,6 @@ export default function AppIndex() {
   const [value, setValue] = React.useState(new Date());
   const [activeInterval, setActiveInterval] = React.useState();
   const [language, setLanguage] = React.useState(en);
-
-  async function executeOperation() {
-    if (operation === language.operationNames.restart) {
-      const command = new Command("cmd.exe", ["/c", "shutdown /r"]);
-      await command.spawn();
-    } else if (operation === language.operationNames.turningOff) {
-      const command = new Command("cmd.exe", ["/c", "shutdown /s"]);
-      await command.spawn();
-    } else if (operation === language.operationNames.sleeping) {
-      const command = new Command("cmd.exe", [
-        "/c",
-        "rundll32.exe powrprof.dll,SetSuspendState 0,1,0",
-      ]);
-      await command.spawn();
-    } else {
-      return;
-    }
-  }
 
   const handleChange = (event) => {
     setOperation(event.target.value);
@@ -97,7 +79,7 @@ export default function AppIndex() {
       let convertedTargetDate = Math.floor(value.getTime() / 1000);
       if (currentDate === convertedTargetDate) {
         stopTimer(myInterval);
-        executeOperation();
+        systemOperation(operation, language);
         clearInterval(myInterval);
       } else {
         remaining_time.innerHTML =
