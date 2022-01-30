@@ -18,3 +18,7 @@ npm run tauri dev
 ```sh
 npm run tauri build
 ```
+
+### Preview
+<img src="https://raw.githubusercontent.com/schrudolf/tauri-system-operations/blob/main/system-operations/public/so-01.png?raw=true" />
+<img src="https://raw.githubusercontent.com/schrudolf/tauri-system-operations/blob/main/system-operations/public/so-02.png?raw=true" />
