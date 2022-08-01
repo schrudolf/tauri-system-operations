@@ -6,7 +6,7 @@
     "@date-io/date-fns": "^2.13.1",
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
-    "@mui/lab": "^5.0.0-alpha.75",
+    "@mui/lab": "^5.0.0-alpha.92",
     "@mui/material": "^5.5.3",
     "@tauri-apps/api": "^1.0.0-rc.3",
     "@testing-library/jest-dom": "^5.16.3",
